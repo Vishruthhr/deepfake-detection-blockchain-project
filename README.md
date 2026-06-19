@@ -2,11 +2,11 @@
 
 ## Project Overview
 
-This project presents a Deepfake Video Detection System integrated with Ethereum Blockchain for secure and tamper-proof verification of prediction results.
+This project presents a Deepfake Video Detection System integrated with Ethereum Blockchain for secure, transparent, and tamper-proof verification of prediction results.
 
-The system detects whether a video is REAL or FAKE using Deep Learning techniques and stores the verification results on the Ethereum Sepolia Blockchain.
+The system uses RetinaFace for face detection, Xception CNN for spatial feature extraction, and LSTM for temporal sequence analysis. After classification, a SHA256 hash of the video along with the prediction result is stored on the Ethereum Sepolia Blockchain using a Solidity Smart Contract.
 
-The main objective is to combine Artificial Intelligence and Blockchain Technology to improve trust, transparency, and security in deepfake detection systems.
+The objective of this project is to combine Deep Learning and Blockchain Technology to improve trust, security, and authenticity verification of digital media.
 
 ---
 
@@ -14,13 +14,14 @@ The main objective is to combine Artificial Intelligence and Blockchain Technolo
 
 * Deepfake Video Detection
 * Face Detection using RetinaFace
-* Feature Extraction using Xception Network
-* Temporal Analysis using LSTM
+* Feature Extraction using Xception CNN
+* Temporal Learning using LSTM
 * SHA256 Video Hash Generation
 * Ethereum Blockchain Integration
-* Tamper-Proof Verification Records
-* Secure Storage of Prediction Results
-* Automatic Prediction Logging
+* Smart Contract Based Verification
+* Tamper-Proof Record Storage
+* Secure Prediction Logging
+* Blockchain-Based Evidence Tracking
 
 ---
 
@@ -34,19 +35,15 @@ RetinaFace Face Detection
 
 ↓
 
-Face Extraction
+Face Extraction & Preprocessing
 
 ↓
 
-Xception CNN
+Xception CNN Feature Extraction
 
 ↓
 
-Feature Extraction
-
-↓
-
-LSTM Network
+LSTM Temporal Analysis
 
 ↓
 
@@ -54,7 +51,7 @@ REAL / FAKE Classification
 
 ↓
 
-SHA256 Hash Generation
+SHA256 Video Hash Generation
 
 ↓
 
@@ -72,7 +69,7 @@ Blockchain Storage
 
 * Python 3.10
 
-### Deep Learning
+### Deep Learning Frameworks
 
 * TensorFlow
 * Keras
@@ -85,12 +82,12 @@ Blockchain Storage
 ### Deep Learning Architecture
 
 * Xception CNN
-* LSTM
+* LSTM Network
 
 ### Blockchain
 
 * Ethereum Sepolia Testnet
-* Solidity Smart Contracts
+* Solidity
 * Web3.py
 
 ### Development Tools
@@ -104,53 +101,65 @@ Blockchain Storage
 
 ## Why RetinaFace?
 
-RetinaFace is a state-of-the-art deep learning based facial detector.
+RetinaFace is a state-of-the-art deep learning-based face detector capable of accurately detecting faces under challenging conditions.
 
 Advantages:
 
 * High face detection accuracy
 * Facial landmark detection
 * Robust under varying lighting conditions
-* Effective for deepfake preprocessing
+* Effective face localization
+* Improved preprocessing for deepfake detection
 
-The model extracts the most prominent face from each video frame before classification.
+The model extracts the most prominent face from each frame before classification.
 
 ---
 
 ## Why Xception?
 
-Xception is a powerful convolutional neural network architecture widely used in deepfake detection research.
+Xception is one of the most widely used architectures in deepfake detection research.
 
 Advantages:
 
-* Efficient feature extraction
-* Strong generalization capability
-* Excellent performance on manipulated facial images
+* Excellent feature extraction capability
+* Strong performance on manipulated images
+* Efficient transfer learning
+* Reduced overfitting
+
+The network learns deepfake-specific visual artifacts from facial regions.
 
 ---
 
 ## Why LSTM?
 
-Deepfake videos contain temporal inconsistencies across frames.
+Deepfake videos often contain temporal inconsistencies that cannot be detected from a single frame.
 
 LSTM helps:
 
 * Capture temporal dependencies
-* Analyze frame sequences
-* Improve video-level prediction accuracy
+* Learn frame-to-frame relationships
+* Improve video-level classification accuracy
+* Detect manipulation patterns across sequences
 
 ---
 
 ## Dataset
 
-The system was trained on face sequences extracted from deepfake and real videos.
+The model was trained using face sequences extracted from real and deepfake videos.
 
-Preprocessing:
+### Preprocessing Steps
 
-* Face extraction using RetinaFace
-* Frame resizing to 224×224
-* Normalization
-* Sequence length: 20 frames
+* Face Detection using RetinaFace
+* Face Cropping
+* Frame Resizing to 224×224
+* Pixel Normalization
+* Sequence Generation
+* Temporal Sampling
+
+### Sequence Configuration
+
+* Image Size: 224 × 224
+* Sequence Length: 20 Frames
 
 ---
 
@@ -158,20 +167,27 @@ Preprocessing:
 
 ### Final Evaluation Results
 
-| Metric    | Value  |
+| Metric    | Score  |
 | --------- | ------ |
-| Accuracy  | 90.02% |
-| Precision | 88.00% |
-| Recall    | 92.68% |
-| F1 Score  | 90.28% |
-| ROC-AUC   | 96.45% |
+| Accuracy  | 92.46% |
+| Precision | 94.43% |
+| Recall    | 90.24% |
+| F1 Score  | 92.29% |
+| ROC-AUC   | 97.48% |
 
 ### Classification Report
 
 | Class | Precision | Recall | F1 Score |
 | ----- | --------- | ------ | -------- |
-| Real  | 0.92      | 0.87   | 0.90     |
-| Fake  | 0.88      | 0.93   | 0.90     |
+| Real  | 0.91      | 0.95   | 0.93     |
+| Fake  | 0.94      | 0.90   | 0.92     |
+
+### Confusion Matrix
+
+| Actual / Predicted | Real | Fake |
+| ------------------ | ---- | ---- |
+| Real               | 427  | 24   |
+| Fake               | 44   | 407  |
 
 ---
 
@@ -179,14 +195,14 @@ Preprocessing:
 
 ### Smart Contract
 
-A Solidity smart contract was developed to store verification records.
+A Solidity Smart Contract was developed to securely store prediction results on the Ethereum Blockchain.
 
-Stored Information:
+### Stored Information
 
 * Video Hash
 * Prediction Result
 * Timestamp
-* Uploader Wallet Address
+* Wallet Address
 
 ### Smart Contract Functions
 
@@ -196,11 +212,11 @@ Stores a prediction result on Ethereum.
 
 #### getRecord()
 
-Retrieves a stored record.
+Retrieves a stored prediction record.
 
 #### getTotalRecords()
 
-Returns total records stored.
+Returns the total number of stored records.
 
 ---
 
@@ -214,9 +230,9 @@ Ethereum Sepolia Testnet
 
 MetaMask
 
-### Communication
+### RPC Provider
 
-Alchemy RPC
+Alchemy
 
 ### Python Library
 
@@ -234,7 +250,7 @@ Prediction:
 
 FAKE
 
-Uploader:
+Wallet Address:
 
 0xc2aE2f50736d9C9986C68EA332A04502A21E7A9B
 
@@ -255,7 +271,7 @@ cd deepfake-detection-blockchain
 python -m venv venv
 ```
 
-### Activate Environment
+### Activate Virtual Environment
 
 Windows:
 
@@ -273,7 +289,7 @@ pip install -r requirements.txt
 
 ## Running the Project
 
-### Predict a Video
+### Predict and Verify a Video
 
 Edit:
 
@@ -281,7 +297,7 @@ Edit:
 VIDEO_PATH = r"path_to_video.mp4"
 ```
 
-Then run:
+Run:
 
 ```bash
 python predict_video_direct.py
@@ -300,7 +316,7 @@ Transaction Hash: XXXXX
 
 ## Blockchain Verification
 
-Read all stored blockchain records:
+Retrieve all blockchain records:
 
 ```bash
 python read_blockchain.py
@@ -318,13 +334,16 @@ deepfake-detection-blockchain
 │   ├── blockchain_interface.py
 │   ├── deploy_contract.py
 │   ├── contract_abi.json
+│   └── contract_bytecode.txt
 │
 ├── face_dataset_generator.py
 ├── face_extractor.py
 ├── model.py
 ├── train_face_model.py
+├── fine_tune_model.py
 ├── evaluate_model.py
 ├── predict_video_direct.py
+├── read_blockchain.py
 │
 ├── requirements.txt
 ├── README.md
@@ -334,22 +353,25 @@ deepfake-detection-blockchain
 
 ## Future Scope
 
-* Web Application Integration
-* Real-Time Video Detection
-* IPFS Storage Integration
-* Multi-Blockchain Support
-* Explainable AI for Deepfake Detection
-* Mobile Application Deployment
+* Real-Time Deepfake Detection
+* Web Application Deployment
+* Mobile Application Integration
+* IPFS Storage Support
+* Multi-Blockchain Compatibility
+* Explainable AI Integration
+* Cloud Deployment
 
 ---
 
 ## Conclusion
 
-This project successfully combines Deep Learning and Blockchain Technology to create a secure Deepfake Detection Framework. The system detects manipulated videos with 90.02% accuracy and stores prediction records on the Ethereum Blockchain, ensuring transparency, traceability, and tamper-proof verification.
+This project successfully combines Deep Learning and Blockchain Technology to create a secure Deepfake Detection Framework. The proposed system achieved **92.46% accuracy**, **94.43% precision**, **92.29% F1 Score**, and **97.48% ROC-AUC** while providing tamper-proof verification through Ethereum Blockchain integration.
+
+---
 
 ## Author
 
-Vishruth H R
+**Vishruth H R**
 
 B.Tech Information Science and Engineering
 
