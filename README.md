@@ -51,7 +51,7 @@ REAL / FAKE Classification
 
 ↓
 
-SHA256 Video Hash Generation
+SHA256 Hash Generation
 
 ↓
 
@@ -87,7 +87,7 @@ Blockchain Storage
 ### Blockchain
 
 * Ethereum Sepolia Testnet
-* Solidity
+* Solidity Smart Contracts
 * Web3.py
 
 ### Development Tools
@@ -103,7 +103,7 @@ Blockchain Storage
 
 RetinaFace is a state-of-the-art deep learning-based face detector capable of accurately detecting faces under challenging conditions.
 
-Advantages:
+### Advantages
 
 * High face detection accuracy
 * Facial landmark detection
@@ -119,7 +119,7 @@ The model extracts the most prominent face from each frame before classification
 
 Xception is one of the most widely used architectures in deepfake detection research.
 
-Advantages:
+### Advantages
 
 * Excellent feature extraction capability
 * Strong performance on manipulated images
@@ -134,12 +134,12 @@ The network learns deepfake-specific visual artifacts from facial regions.
 
 Deepfake videos often contain temporal inconsistencies that cannot be detected from a single frame.
 
-LSTM helps:
+### Advantages
 
-* Capture temporal dependencies
-* Learn frame-to-frame relationships
-* Improve video-level classification accuracy
-* Detect manipulation patterns across sequences
+* Captures temporal dependencies
+* Learns frame-to-frame relationships
+* Improves video-level classification accuracy
+* Detects manipulation patterns across sequences
 
 ---
 
@@ -169,25 +169,41 @@ The model was trained using face sequences extracted from real and deepfake vide
 
 | Metric    | Score  |
 | --------- | ------ |
-| Accuracy  | 92.46% |
-| Precision | 94.43% |
-| Recall    | 90.24% |
-| F1 Score  | 92.29% |
-| ROC-AUC   | 97.48% |
+| Accuracy  | 93.79% |
+| Precision | 92.84% |
+| Recall    | 94.90% |
+| F1 Score  | 93.86% |
+| ROC-AUC   | 98.34% |
 
 ### Classification Report
 
 | Class | Precision | Recall | F1 Score |
 | ----- | --------- | ------ | -------- |
-| Real  | 0.91      | 0.95   | 0.93     |
-| Fake  | 0.94      | 0.90   | 0.92     |
+| Real  | 0.95      | 0.93   | 0.94     |
+| Fake  | 0.93      | 0.95   | 0.94     |
 
 ### Confusion Matrix
 
 | Actual / Predicted | Real | Fake |
 | ------------------ | ---- | ---- |
-| Real               | 427  | 24   |
-| Fake               | 44   | 407  |
+| Real               | 418  | 33   |
+| Fake               | 23   | 428  |
+
+### Model Improvement
+
+The initial model achieved 92.46% accuracy after fine-tuning the final layers of the Xception backbone.
+
+Further optimization was performed by:
+
+* Fine-tuning the last 30 layers of Xception
+* Using a low learning rate (1e-5)
+* Increasing Early Stopping patience from 2 to 5
+
+This improved performance to:
+
+* Accuracy: 93.79%
+* F1 Score: 93.86%
+* ROC-AUC: 98.34%
 
 ---
 
@@ -271,9 +287,7 @@ cd deepfake-detection-blockchain
 python -m venv venv
 ```
 
-### Activate Virtual Environment
-
-Windows:
+### Activate Environment
 
 ```bash
 venv\Scripts\activate
@@ -306,7 +320,7 @@ python predict_video_direct.py
 Output:
 
 ```text
-Prediction: REAL/FAKE
+Prediction: REAL / FAKE
 Confidence: XX%
 Video Hash: XXXXX
 Transaction Hash: XXXXX
@@ -316,7 +330,7 @@ Transaction Hash: XXXXX
 
 ## Blockchain Verification
 
-Retrieve all blockchain records:
+Retrieve all stored blockchain records:
 
 ```bash
 python read_blockchain.py
@@ -356,8 +370,8 @@ deepfake-detection-blockchain
 * Real-Time Deepfake Detection
 * Web Application Deployment
 * Mobile Application Integration
-* IPFS Storage Support
-* Multi-Blockchain Compatibility
+* IPFS Storage Integration
+* Multi-Blockchain Support
 * Explainable AI Integration
 * Cloud Deployment
 
@@ -365,7 +379,17 @@ deepfake-detection-blockchain
 
 ## Conclusion
 
-This project successfully combines Deep Learning and Blockchain Technology to create a secure Deepfake Detection Framework. The proposed system achieved **92.46% accuracy**, **94.43% precision**, **92.29% F1 Score**, and **97.48% ROC-AUC** while providing tamper-proof verification through Ethereum Blockchain integration.
+This project successfully combines Deep Learning and Blockchain Technology to create a secure and tamper-proof Deepfake Detection Framework.
+
+The final model achieved:
+
+* Accuracy: 93.79%
+* Precision: 92.84%
+* Recall: 94.90%
+* F1 Score: 93.86%
+* ROC-AUC: 98.34%
+
+The integration of Ethereum Blockchain ensures that prediction records are immutable, transparent, and verifiable. By storing SHA256 video hashes and prediction results on-chain, the system provides a trustworthy mechanism for validating digital media authenticity.
 
 ---
 
