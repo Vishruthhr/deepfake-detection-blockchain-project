@@ -400,3 +400,9 @@ The integration of Ethereum Blockchain ensures that prediction records are immut
 B.Tech Information Science and Engineering
 
 NMAM Institute of Technology (NMAMIT), Nitte
+
+**Sharadhi H K**
+
+B.Tech Information Science and Engineering
+
+NMAM Institute of Technology (NMAMIT), Nitte
