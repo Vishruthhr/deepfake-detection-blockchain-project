@@ -72,18 +72,57 @@ class FaceGenerator(Sequence):
                 image_path
             )
 
+            if img is None:
+                continue
+
             img = cv2.cvtColor(
                 img,
                 cv2.COLOR_BGR2RGB
             )
 
+            # =====================
+            # DATA AUGMENTATION
+            # =====================
+
+            if self.shuffle:
+
+                # Horizontal Flip
+                if np.random.rand() < 0.5:
+
+                    img = cv2.flip(
+                        img,
+                        1
+                    )
+
+                # Brightness / Contrast
+                if np.random.rand() < 0.3:
+
+                    alpha = np.random.uniform(
+                        0.9,
+                        1.1
+                    )
+
+                    beta = np.random.uniform(
+                        -10,
+                        10
+                    )
+
+                    img = cv2.convertScaleAbs(
+                        img,
+                        alpha=alpha,
+                        beta=beta
+                    )
+
             img = img.astype(
-                np.float32
+                np.float16
             ) / 255.0
 
             frames.append(
                 img
             )
+
+        if len(frames) == 0:
+            return None
 
         if len(frames) < SEQUENCE_LENGTH:
 
@@ -95,7 +134,7 @@ class FaceGenerator(Sequence):
 
         return np.array(
             frames,
-            dtype=np.float32
+            dtype=np.float16
         )
 
     def __getitem__(
@@ -119,6 +158,9 @@ class FaceGenerator(Sequence):
                 row["folder_path"]
             )
 
+            if sequence is None:
+                continue
+
             X.append(sequence)
 
             y.append(
@@ -128,7 +170,7 @@ class FaceGenerator(Sequence):
         return (
             np.array(
                 X,
-                dtype=np.float32
+                dtype=np.float16
             ),
             np.array(
                 y,
